@@ -2,15 +2,16 @@
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
 
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import Weather from "./components/Weather";
+
 const App = () => {
-  // const [count, setCount] = useState(0)
+  // const query = useQuery({ queryKey: ["todos"], queryFn: getTodos });
 
   return (
     <>
-      <div>
-        hello
-        {import.meta.env.VITE_API_URL}
-      </div>
+      <Weather />
     </>
   );
 };
