@@ -1,0 +1,23 @@
+import { defineConfig } from "vite";
+import path from "path";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig(() => {
+  const config = {
+    plugins: [react()],
+    base: "/weather-app",
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src")
+      }
+    },
+    test: {
+      environment: "jsdom"
+    },
+    server: {
+      port: 3333
+    }
+  };
+
+  return config;
+});
