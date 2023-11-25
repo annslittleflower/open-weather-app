@@ -10,6 +10,8 @@
 
 - openweathermap api key activates 2 hours after registration
 
-## problems
+## TODO
 
 - city partial search doesnot work, user needs to type city 100% correctly
+- a11y and semantics are currently sad
+- hardcoded celsius temperature

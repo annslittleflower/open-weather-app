@@ -1,16 +1,34 @@
+import { IconX } from "@tabler/icons-react";
 import { Button } from "@/ui";
 
-const HistoryItem = () => {
+type Props = {
+  city: string;
+  setCity: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const HistoryItem = ({ city, setCity }: Props) => {
+  const updateURL = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("city", city);
+    history.pushState({}, "", url);
+
+    setCity(city);
+  };
+
   return (
-    <div className="min-w-[4rem] rounded-2xl border-2 border-gray-300 flex flex-col p-2 ">
+    <a
+      onClick={updateURL}
+      className="cursor-pointer hover:bg-blue-400 hover:text-gray-200 min-w-[10rem] max-w-[16rem] rounded-2xl border-2 border-gray-300 flex justify-center flex-row-reverse lg:flex-col p-2 lg:p-4"
+    >
       <Button
-        onClick={() => console.log("remove item")}
-        className="text-right text-4xl p-0 border-0 leading-[2.25rem] self-end"
+        onClick={() => console.log(`remove item ${city}`)}
+        className="text-right p-0 border-0 self-end ml-1 lg:ml-0 lg:mb-4"
+        title="delete search item "
       >
-        x
+        <IconX className="h-6 w-6 hover:ring-2" />
       </Button>
-      <div>history item</div>
-    </div>
+      {city}
+    </a>
   );
 };
 
