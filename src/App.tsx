@@ -5,8 +5,6 @@
 import Weather from "./features/Weather";
 
 const App = () => {
-  // const query = useQuery({ queryKey: ["todos"], queryFn: getTodos });
-
   return (
     <>
       <Weather />
