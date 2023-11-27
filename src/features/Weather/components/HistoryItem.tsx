@@ -3,7 +3,7 @@ import { Button } from "@/ui";
 
 type Props = {
   city: string;
-  setCity: React.Dispatch<React.SetStateAction<string>>;
+  setCity: (city: string) => void;
   deleteCity: (city: string) => void;
 };
 
