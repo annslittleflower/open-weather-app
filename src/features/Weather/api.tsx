@@ -29,7 +29,6 @@ const useWeatherData = (city: string) => {
     enabled: !!city,
     queryKey: ["weatherData", city],
     queryFn: async () => {
-      console.log("import.meta.env.VITE_API_URL", import.meta.env.VITE_API_URL);
       const geoResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${
           import.meta.env.VITE_API_URL
