@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig(() => {
   const config = {
     plugins: [react()],
-    base: "/weather-app",
+    base: "/open-weather-app",
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src")
