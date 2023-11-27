@@ -1,5 +1,9 @@
 # weather app
 
+[Live link - https://annslittleflower.github.io/open-weather-app/](https://annslittleflower.github.io/open-weather-app/)
+
+## installation
+
 `nvm i`
 
 `nvm use`
@@ -16,6 +20,7 @@
 - tailwind
 - undo remove
 - remove city from url if removed from history
+- keyboard a11y works
 
 **beware**
 
@@ -23,13 +28,14 @@
 
 ## problems & todos
 
-- jumping search css
-- decouple logic in Weather component
+- clear input on enter
+- two city state variables
 - city partial search doesnot work, user needs to type city 100% correctly
-- a11y and semantics are currently sad
+- a11y and semantics are currently bad
 - tests timer popups
 - try to do undo with query cache client, not string city arrays
 - bad request value goes to history
 - code cleanup
 - eslint doublecheck
 - pre-commit and pre-push hook
+- ctrl+z for undo

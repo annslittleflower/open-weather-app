@@ -1,107 +1,29 @@
-import { useState, useEffect, useCallback } from "react";
 import { Input, Button } from "@/ui";
 import HistoryItem from "./components/HistoryItem";
 import WeatherInfo from "./components/WeatherInfo";
 import { Popup } from "@/ui";
-import useWeatherData from "./api";
-
-const DELETE_TIMEOUT = 3000;
+import useWeather from "./useWeather";
 
 const Weather = () => {
-  const cityParam = new URLSearchParams(window.location.search).get("city");
-
-  const [cityInputValue, setCityInputValue] = useState(cityParam || "");
-  const [city, setCity] = useState(cityParam || "");
-
-  const [searchHistory, setSearchHistory] = useState<string[]>(
-    cityParam ? [cityParam] : []
-  );
-
-  const [citiesForDeletion, setCitiesForDeletion] = useState<string[]>([]);
-
-  const { data: weatherData, isLoading, error } = useWeatherData(city || "");
-
-  const historyToDisplay = searchHistory.filter(
-    (s) => !citiesForDeletion.includes(s)
-  );
-
-  const handleBatchDelete = useCallback(() => {
-    if (!citiesForDeletion.length) return;
-
-    const updatedHistory = searchHistory.filter(
-      (c) => !citiesForDeletion.includes(c)
-    );
-
-    const isCurrentCityRemoved = citiesForDeletion.includes(city);
-
-    setSearchHistory(updatedHistory);
-    setCitiesForDeletion([]);
-
-    if (isCurrentCityRemoved) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete("city");
-      history.pushState({}, "", url);
-      setCity("");
-      setCityInputValue("");
-    }
-
-    if (updatedHistory.length && isCurrentCityRemoved) {
-      const url = new URL(window.location.href);
-      url.searchParams.set("city", updatedHistory[0]);
-      history.pushState({}, "", url);
-      setCity(updatedHistory[0]);
-      setCityInputValue(updatedHistory[0]);
-    }
-  }, [citiesForDeletion, searchHistory, city]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      handleBatchDelete();
-    }, DELETE_TIMEOUT);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [citiesForDeletion, handleBatchDelete]);
-
-  const handleDeleteCity = (c: string) => {
-    setCitiesForDeletion((prev) => [c, ...prev]);
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!cityInputValue) return;
-    const url = new URL(window.location.href);
-    url.searchParams.set("city", cityInputValue);
-    history.pushState({}, "", url);
-
-    setCity(cityInputValue);
-
-    const isCurrentCityInHistory = searchHistory.includes(cityInputValue);
-
-    if (isCurrentCityInHistory) {
-      const newHistory = searchHistory.filter((c) => c !== cityInputValue);
-      setSearchHistory([cityInputValue, ...newHistory]);
-      return;
-    }
-
-    setSearchHistory((prev) => [cityInputValue, ...prev]);
-  };
-
-  const handleUndo = (c: string) => {
-    setCitiesForDeletion(citiesForDeletion.filter((item) => item !== c));
-  };
-
-  const handleSetCity = (c: string) => {
-    setCity(c);
-    setCityInputValue(c);
-  };
+  const {
+    weatherData,
+    isLoading,
+    loadingError,
+    handleSubmit,
+    handleSetCity,
+    handleUndo,
+    handleDeleteCity,
+    citiesForDeletion,
+    historyToDisplay,
+    cityInputValue,
+    setCityInputValue
+  } = useWeather();
 
   return (
     <div className="m-4">
       <form
         onSubmit={handleSubmit}
-        className="header gap-1 flex lg:justify-start lg:pl-[25%] justify-center"
+        className="header gap-1 flex  justify-center"
       >
         <Input
           placeholder="enter your city"
@@ -112,18 +34,20 @@ const Weather = () => {
         />
         <Button
           type="submit"
-          className="bg-gray-300 hover:bg-gray-400 focus:bg-gray-400"
+          className="bg-blue-200 hover:bg-blue-400 focus:hover:bg-blue-400"
         >
           search
         </Button>
       </form>
 
-      <div className="mb-8 flex justify-center mt-4 lg:mt-16 gap-8 lg:gap-32 max-w-[80rem] flex-col-reverse lg:flex-row">
+      <div className="mb-8 flex justify-center mt-4 lg:mt-16 gap-8 lg:gap-32  flex-col-reverse lg:flex-row">
         {weatherData ? <WeatherInfo weatherData={weatherData} /> : null}
         {isLoading ? (
           <div className="min-w-[20rem]">loading weather...</div>
         ) : null}
-        {error ? <div className="min-w-[20rem]">{error.message}</div> : null}
+        {loadingError ? (
+          <div className="min-w-[20rem]">{loadingError.message}</div>
+        ) : null}
         {historyToDisplay.length ? (
           <div className="flex gap-4  lg:max-h-[calc(80vh-16px)]  overflow-auto flex-row lg:flex-col">
             {historyToDisplay.map((c) => (

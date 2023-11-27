@@ -19,7 +19,7 @@ const HistoryItem = ({ city, setCity, deleteCity }: Props) => {
   return (
     <a
       onClick={updateURL}
-      className="cursor-pointer hover:bg-blue-400 hover:text-gray-200 min-w-[10rem] max-w-[16rem] rounded-2xl border-2 border-gray-300 flex justify-center flex-row-reverse lg:flex-col p-2 lg:p-4"
+      className="cursor-pointer bg-blue-200  hover:bg-blue-400 hover:text-gray-200 min-w-[10rem] max-w-[16rem] rounded-2xl border-2 border-gray-300 flex justify-center flex-row-reverse lg:flex-col p-2 lg:p-4"
     >
       <Button
         onClick={(e) => {
