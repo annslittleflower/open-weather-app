@@ -37,6 +37,8 @@ const useWeatherData = (city: string) => {
         }`
       );
 
+      console.log("geoResponse.ok", geoResponse.ok);
+
       if (!geoResponse.ok) {
         throw new Error("something is wrong, try later");
       }

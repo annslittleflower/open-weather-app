@@ -16,10 +16,12 @@ const Weather = () => {
 
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
 
-  const { data: weatherData, isError } = useWeatherData(city || "");
-
-  console.log("weatherData", weatherData);
-  console.log("isError", isError);
+  const {
+    data: weatherData,
+    isLoading,
+    isError,
+    error
+  } = useWeatherData(city || "");
 
   const [citiesForDeletion, setCitiesForDeletion] = useState<string[]>([]);
 
@@ -87,6 +89,14 @@ const Weather = () => {
 
     setCity(cityInputValue);
 
+    const isCurrentCityInHistory = searchHistory.includes(cityInputValue);
+
+    if (isCurrentCityInHistory) {
+      const newHistory = searchHistory.filter((c) => c !== cityInputValue);
+      setSearchHistory([cityInputValue, ...newHistory]);
+      return;
+    }
+
     setSearchHistory((prev) => [cityInputValue, ...prev]);
   };
 
@@ -122,6 +132,10 @@ const Weather = () => {
 
       <div className="mb-8 flex justify-center mt-4 lg:mt-16 gap-8 lg:gap-32 max-w-[80rem] flex-col-reverse lg:flex-row">
         {weatherData ? <WeatherInfo weatherData={weatherData} /> : null}
+        {isLoading ? (
+          <div className="min-w-[20rem]">loading weather...</div>
+        ) : null}
+        {isError ? <div className="min-w-[20rem]">{error.message}</div> : null}
         {historyToDisplay.length ? (
           <div className="flex gap-4  lg:max-h-[calc(80vh-16px)]  overflow-auto flex-row lg:flex-col">
             {historyToDisplay.map((c) => (
