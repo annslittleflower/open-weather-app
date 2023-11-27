@@ -12,9 +12,11 @@ const Weather = () => {
   const cityParam = urlParams.get("city");
 
   const [cityInputValue, setCityInputValue] = useState(cityParam || "");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState(cityParam || "");
 
-  const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [searchHistory, setSearchHistory] = useState<string[]>(
+    cityParam ? [cityParam] : []
+  );
 
   const {
     data: weatherData,
@@ -57,14 +59,6 @@ const Weather = () => {
       setCityInputValue(updatedHistory[0]);
     }
   }, [citiesForDeletion, searchHistory, city]);
-
-  useEffect(() => {
-    if (cityParam) {
-      console.log("i am called");
-      setCity(cityParam);
-      setSearchHistory([cityParam]);
-    }
-  }, []);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
