@@ -10,6 +10,8 @@
 
 `npm run dev`
 
+in root create `.env.local` file, paste `VITE_API_URL=your-api-key`
+
 ## features
 
 - share by url
