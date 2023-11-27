@@ -1,16 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-// old api?
+// old api ?
 // api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=813de8d0c3d0e1521e5186d98b2ede55
 
-// Snapshot the previous value
-// const previousTodos = queryClient.getQueryData(todoListOptions.queryKey)
-
-// queryClient.ensureQueryData
-// ensureQueryData is an asynchronous function that can be used to get an existing query's cached data. If the query does not exist, queryClient.fetchQuery will be called and its results returned.
-
-// const data = await queryClient.ensureQueryData({ queryKey, queryFn })
-
-//   `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+// new api ?
+// `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${API_KEY}`
 
 export type WeatherData = {
   city: string;

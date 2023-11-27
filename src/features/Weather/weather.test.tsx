@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi } from "vitest";
-import Weather from ".";
+import Weather from "./Weather";
 
 const mockWeatherData = {
   coord: { lon: -0.1257, lat: 51.5085 },

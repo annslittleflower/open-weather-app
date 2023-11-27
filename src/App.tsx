@@ -2,7 +2,7 @@
 // import reactLogo from "./assets/react.svg";
 // import viteLogo from "/vite.svg";
 
-import Weather from "./features/Weather";
+import { Weather } from "./features/";
 
 const App = () => {
   return (
