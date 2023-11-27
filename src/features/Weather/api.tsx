@@ -1,7 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-// import { getRandomInt } from "@/utils/helpers";
-
-// - Example of API call:
+// old api?
 // api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=813de8d0c3d0e1521e5186d98b2ede55
 
 // Snapshot the previous value
@@ -31,13 +29,14 @@ const useWeatherData = (city: string) => {
     enabled: !!city,
     queryKey: ["weatherData", city],
     queryFn: async () => {
+      console.log("import.meta.env.VITE_API_URL", import.meta.env.VITE_API_URL);
       const geoResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${
           import.meta.env.VITE_API_URL
         }`
       );
 
-      console.log("geoResponse.ok", geoResponse.ok);
+      console.log("geoResponse", geoResponse, geoResponse.ok);
 
       if (!geoResponse.ok) {
         throw new Error("something is wrong, try later");

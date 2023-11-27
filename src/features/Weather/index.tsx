@@ -8,8 +8,7 @@ import useWeatherData from "./api";
 const DELETE_TIMEOUT = 3000;
 
 const Weather = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const cityParam = urlParams.get("city");
+  const cityParam = new URLSearchParams(window.location.search).get("city");
 
   const [cityInputValue, setCityInputValue] = useState(cityParam || "");
   const [city, setCity] = useState(cityParam || "");
@@ -18,14 +17,9 @@ const Weather = () => {
     cityParam ? [cityParam] : []
   );
 
-  const {
-    data: weatherData,
-    isLoading,
-    isError,
-    error
-  } = useWeatherData(city || "");
-
   const [citiesForDeletion, setCitiesForDeletion] = useState<string[]>([]);
+
+  const { data: weatherData, isLoading, error } = useWeatherData(city || "");
 
   const historyToDisplay = searchHistory.filter(
     (s) => !citiesForDeletion.includes(s)
@@ -129,7 +123,7 @@ const Weather = () => {
         {isLoading ? (
           <div className="min-w-[20rem]">loading weather...</div>
         ) : null}
-        {isError ? <div className="min-w-[20rem]">{error.message}</div> : null}
+        {error ? <div className="min-w-[20rem]">{error.message}</div> : null}
         {historyToDisplay.length ? (
           <div className="flex gap-4  lg:max-h-[calc(80vh-16px)]  overflow-auto flex-row lg:flex-col">
             {historyToDisplay.map((c) => (
