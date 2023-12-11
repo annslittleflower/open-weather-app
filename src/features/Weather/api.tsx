@@ -1,9 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-// old api ?
-// api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=813de8d0c3d0e1521e5186d98b2ede55
-
-// new api ?
-// `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${API_KEY}`
 
 export type WeatherData = {
   city: string;
