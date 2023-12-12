@@ -1,13 +1,13 @@
-import { useState, useEffect, useCallback } from "react";
-import useWeatherData from "./api";
+import { useState, useEffect, useCallback } from 'react';
+import useWeatherData from './api';
 
 const DELETE_TIMEOUT = 3000;
 
 const useWeather = () => {
-  const cityParam = new URLSearchParams(window.location.search).get("city");
+  const cityParam = new URLSearchParams(window.location.search).get('city');
 
-  const [cityInputValue, setCityInputValue] = useState(cityParam || "");
-  const [city, setCity] = useState(cityParam || "");
+  const [cityInputValue, setCityInputValue] = useState(cityParam || '');
+  const [city, setCity] = useState(cityParam || '');
 
   const [searchHistory, setSearchHistory] = useState<string[]>(
     cityParam ? [cityParam] : []
@@ -18,8 +18,8 @@ const useWeather = () => {
   const {
     data: weatherData,
     isLoading,
-    error: loadingError
-  } = useWeatherData(city || "");
+    error: loadingError,
+  } = useWeatherData(city || '');
 
   const historyToDisplay = searchHistory.filter(
     (s) => !citiesForDeletion.includes(s)
@@ -39,16 +39,16 @@ const useWeather = () => {
 
     if (isCurrentCityRemoved) {
       const url = new URL(window.location.href);
-      url.searchParams.delete("city");
-      history.pushState({}, "", url);
-      setCity("");
-      setCityInputValue("");
+      url.searchParams.delete('city');
+      window.history.pushState({}, '', url);
+      setCity('');
+      setCityInputValue('');
     }
 
     if (updatedHistory.length && isCurrentCityRemoved) {
       const url = new URL(window.location.href);
-      url.searchParams.set("city", updatedHistory[0]);
-      history.pushState({}, "", url);
+      url.searchParams.set('city', updatedHistory[0]);
+      window.history.pushState({}, '', url);
       setCity(updatedHistory[0]);
       setCityInputValue(updatedHistory[0]);
     }
@@ -72,8 +72,8 @@ const useWeather = () => {
     e.preventDefault();
     if (!cityInputValue) return;
     const url = new URL(window.location.href);
-    url.searchParams.set("city", cityInputValue);
-    history.pushState({}, "", url);
+    url.searchParams.set('city', cityInputValue);
+    window.history.pushState({}, '', url);
 
     setCity(cityInputValue);
 
@@ -82,10 +82,13 @@ const useWeather = () => {
     if (isCurrentCityInHistory) {
       const newHistory = searchHistory.filter((c) => c !== cityInputValue);
       setSearchHistory([cityInputValue, ...newHistory]);
+      setCityInputValue('');
+
       return;
     }
 
     setSearchHistory((prev) => [cityInputValue, ...prev]);
+    setCityInputValue('');
   };
 
   const handleUndo = (c: string) => {
@@ -108,7 +111,7 @@ const useWeather = () => {
     handleDeleteCity,
     handleSubmit,
     handleUndo,
-    handleSetCity
+    handleSetCity,
   };
 };
 

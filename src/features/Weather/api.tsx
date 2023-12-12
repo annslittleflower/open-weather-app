@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 
 export type WeatherData = {
   city: string;
@@ -12,10 +12,24 @@ export type WeatherData = {
   windSpeed: number;
 };
 
+export type WeatherResponse = {
+  weather: [{
+    main: string
+  }],
+  main: {
+    temp: number
+    temp_min: number
+    temp_max: number
+  }
+  wind: {
+    speed: number
+  }
+};
+
 const useWeatherData = (city: string) => {
   const result = useQuery({
     enabled: !!city,
-    queryKey: ["weatherData", city],
+    queryKey: ['weatherData', city],
     queryFn: async () => {
       const geoResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${
@@ -24,25 +38,25 @@ const useWeatherData = (city: string) => {
       );
 
       if (!geoResponse.ok) {
-        throw new Error("something is wrong, try later");
+        throw new Error('something is wrong, try again later');
       }
 
-      const geoData = await geoResponse.json();
+      const geoData = await geoResponse.json() as WeatherResponse;
 
       const weatherData: WeatherData = {
         city,
         currentTemp: geoData.main.temp,
         minTemp: geoData.main.temp_min,
         maxTemp: geoData.main.temp_max,
-        isSunny: geoData.weather[0].main === "Clear",
-        isRainy: geoData.weather[0].main === "Rain",
-        isClouds: geoData.weather[0].main === "Clouds",
-        isSnow: geoData.weather[0].main === "Snow",
-        windSpeed: geoData.wind.speed
+        isSunny: geoData.weather[0].main === 'Clear',
+        isRainy: geoData.weather[0].main === 'Rain',
+        isClouds: geoData.weather[0].main === 'Clouds',
+        isSnow: geoData.weather[0].main === 'Snow',
+        windSpeed: geoData.wind.speed,
       };
 
       return weatherData;
-    }
+    },
   });
 
   return result;

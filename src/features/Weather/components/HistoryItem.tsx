@@ -1,5 +1,5 @@
-import { IconX } from "@tabler/icons-react";
-import { Button } from "@/ui";
+import { IconX } from '@tabler/icons-react';
+import { Button } from '@/common/ui';
 
 type Props = {
   city: string;
@@ -10,14 +10,17 @@ type Props = {
 const HistoryItem = ({ city, setCity, deleteCity }: Props) => {
   const updateURL = () => {
     const url = new URL(window.location.href);
-    url.searchParams.set("city", city);
-    history.pushState({}, "", url);
+    url.searchParams.set('city', city);
+    window.history.pushState({}, '', url);
 
     setCity(city);
   };
 
   return (
-    <a
+    <div
+      role="button"
+      onKeyDown={updateURL}
+      tabIndex={0}
       onClick={updateURL}
       className="cursor-pointer bg-blue-200  hover:bg-blue-400 hover:text-gray-200 min-w-[10rem] max-w-[16rem] rounded-2xl border-2 border-gray-300 flex justify-center flex-row-reverse lg:flex-col p-2 lg:p-4"
     >
@@ -32,7 +35,7 @@ const HistoryItem = ({ city, setCity, deleteCity }: Props) => {
         <IconX className="h-6 w-6 hover:ring-2" />
       </Button>
       {city}
-    </a>
+    </div>
   );
 };
 

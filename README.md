@@ -23,6 +23,7 @@ in root create `.env.local` file, paste `VITE_API_URL=your-api-key`
 - undo remove
 - remove city from url if removed from history
 - keyboard a11y works
+- pretty cool lint
 
 **beware**
 
@@ -30,14 +31,8 @@ in root create `.env.local` file, paste `VITE_API_URL=your-api-key`
 
 ## problems & todos
 
-- clear input on enter
+- try to do undo with query cache client, not string city arrays
+- ctrl+z for undo
+
 - two city state variables
 - city partial search doesnot work, user needs to type city 100% correctly
-- a11y and semantics are currently bad
-- tests timer popups
-- try to do undo with query cache client, not string city arrays
-- bad request value goes to history
-- code cleanup
-- eslint doublecheck
-- pre-commit and pre-push hook
-- ctrl+z for undo

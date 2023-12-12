@@ -1,8 +1,7 @@
-import { Input, Button } from "@/ui";
-import HistoryItem from "./components/HistoryItem";
-import WeatherInfo from "./components/WeatherInfo";
-import { Popup } from "@/ui";
-import useWeather from "./useWeather";
+import { Input, Button, Popup } from '@/common/ui';
+import HistoryItem from './components/HistoryItem';
+import WeatherInfo from './components/WeatherInfo';
+import useWeather from './useWeather';
 
 const Weather = () => {
   const {
@@ -16,7 +15,7 @@ const Weather = () => {
     citiesForDeletion,
     historyToDisplay,
     cityInputValue,
-    setCityInputValue
+    setCityInputValue,
   } = useWeather();
 
   return (

@@ -1,15 +1,7 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
+import { Weather } from './features';
 
-import { Weather } from "./features/";
-
-const App = () => {
-  return (
-    <>
-      <Weather />
-    </>
-  );
-};
+const App = () => (
+  <Weather />
+);
 
 export default App;

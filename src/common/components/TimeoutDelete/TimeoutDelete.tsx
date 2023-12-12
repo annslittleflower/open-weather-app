@@ -1,4 +1,4 @@
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState, ReactNode } from 'react';
 
 type Props = {
   ttl?: number; // in milliseconds, default 5 seconds, 5000 ms
