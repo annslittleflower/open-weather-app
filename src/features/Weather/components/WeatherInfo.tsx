@@ -37,23 +37,29 @@ const WeatherInfo = ({
     </div>
     <br />
     <br />
-    <div className="flex   justify-between pb-4 mb-4 gap-4">
-      <div className="flex items-center">
-        Current
-        {' '}
-        <IconTemperature />
-        <div>
-          {currentTemp}
-          °
-        </div>
-        {isSunny || isClouds || isRainy || isSnow ? (
-          <div className="flex   justify-end  ml-4 gap-4">
-            {isSunny && <IconSunHigh />}
-            {isClouds && <IconCloud />}
-            {isRainy && <IconDroplet />}
-            {isSnow && <IconSnowflake />}
+    <div className="flex  w-[16rem] justify-between pb-4 mb-4 gap-4">
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center">
+          Current
+
+          {' '}
+          <IconTemperature />
+          <div>
+            {currentTemp}
+            °
           </div>
-        ) : null}
+        </div>
+        <div>
+
+          {isSunny || isClouds || isRainy || isSnow ? (
+            <div className="flex  ml-4 gap-4">
+              {isSunny && <IconSunHigh />}
+              {isClouds && <IconCloud />}
+              {isRainy && <IconDroplet />}
+              {isSnow && <IconSnowflake />}
+            </div>
+          ) : null}
+        </div>
       </div>
     </div>
 

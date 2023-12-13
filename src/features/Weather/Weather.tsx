@@ -1,6 +1,6 @@
 import { Input, Button, Popup } from '@/common/ui';
-import HistoryItem from './components/HistoryItem';
-import WeatherInfo from './components/WeatherInfo';
+
+import { HistoryItem, WeatherInfo, Loading } from './components';
 import useWeather from './useWeather';
 
 const Weather = () => {
@@ -42,7 +42,7 @@ const Weather = () => {
       <div className="mb-8 flex justify-center mt-4 lg:mt-16 gap-8 lg:gap-32  flex-col-reverse lg:flex-row">
         {weatherData ? <WeatherInfo weatherData={weatherData} /> : null}
         {isLoading ? (
-          <div className="min-w-[20rem]">loading weather...</div>
+          <Loading message="loading weather..." />
         ) : null}
         {loadingError ? (
           <div className="min-w-[20rem]">{loadingError.message}</div>

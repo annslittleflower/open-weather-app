@@ -13,17 +13,19 @@ export type WeatherData = {
 };
 
 export type WeatherResponse = {
-  weather: [{
-    main: string
-  }],
+  weather: [
+    {
+      main: string;
+    }
+  ];
   main: {
-    temp: number
-    temp_min: number
-    temp_max: number
-  }
+    temp: number;
+    temp_min: number;
+    temp_max: number;
+  };
   wind: {
-    speed: number
-  }
+    speed: number;
+  };
 };
 
 const useWeatherData = (city: string) => {
@@ -41,7 +43,7 @@ const useWeatherData = (city: string) => {
         throw new Error('something is wrong, try again later');
       }
 
-      const geoData = await geoResponse.json() as WeatherResponse;
+      const geoData = (await geoResponse.json()) as WeatherResponse;
 
       const weatherData: WeatherData = {
         city,

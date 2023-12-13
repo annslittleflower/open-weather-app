@@ -1,4 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
+import useAreKeysPressed from '@/common/hooks/useAreKeysPressed';
+
 import useWeatherData from './api';
 
 const DELETE_TIMEOUT = 3000;
@@ -65,7 +67,7 @@ const useWeather = () => {
   }, [handleBatchDelete]);
 
   const handleDeleteCity = (c: string) => {
-    setCitiesForDeletion((prev) => [c, ...prev]);
+    setCitiesForDeletion((prev) => [...prev, c]);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -95,10 +97,16 @@ const useWeather = () => {
     setCitiesForDeletion(citiesForDeletion.filter((item) => item !== c));
   };
 
+  const handleCtrlZ = () => {
+    setCitiesForDeletion((prev) => prev.slice(0, -1));
+  };
+
   const handleSetCity = (c: string) => {
     setCity(c);
     setCityInputValue(c);
   };
+
+  useAreKeysPressed(['Control', 'z'], handleCtrlZ);
 
   return {
     weatherData,
