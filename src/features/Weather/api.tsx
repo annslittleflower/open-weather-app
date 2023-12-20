@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 export type WeatherData = {
   city: string;
@@ -29,10 +29,18 @@ export type WeatherResponse = {
 };
 
 const useWeatherData = (city: string) => {
+  const queryClient = useQueryClient();
+
   const result = useQuery({
     enabled: !!city,
     queryKey: ['weatherData', city],
     queryFn: async () => {
+      const presentData: WeatherData | undefined = queryClient.getQueryData([city]);
+
+      if (presentData) {
+        return presentData;
+      }
+
       const geoResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${
           import.meta.env.VITE_API_URL
@@ -57,6 +65,7 @@ const useWeatherData = (city: string) => {
         windSpeed: geoData.wind.speed,
       };
 
+      queryClient.setQueryData([city], weatherData);
       return weatherData;
     },
   });
